@@ -9,6 +9,8 @@ public class SnakeController : MonoBehaviour
     // Use this for initialization
     void Start()
     {
+
+
         Debug.Log("SnakeController has started.");
     }
 
@@ -44,6 +46,16 @@ public class SnakeController : MonoBehaviour
         nextPos.y += moveDirection.y;
 
         transform.position = nextPos;
+    }
+
+
+   private IEnumerator MoveLoop()
+    {
+        while(true)
+        {
+            transform.position += (Vector3) moveDirection;
+            yield return new WaitForSeconds(moveInterval);
+        }
     }
 
 }
