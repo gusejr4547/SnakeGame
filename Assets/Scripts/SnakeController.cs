@@ -44,7 +44,7 @@ public class SnakeController : MonoBehaviour
         while(true)
         {
             MoveSnake();
-            yield return new WaitForSeconds(moveInterval);
+            yield return wait;
         }
     }
 
