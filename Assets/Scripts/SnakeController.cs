@@ -5,7 +5,7 @@ public class SnakeController : MonoBehaviour
 {
     private Vector2Int moveDirection = Vector2Int.right;
     // SerializeField makes private fields visible in the Unity Inspector
-    [SerializeField] private float moveInterval = 0.2f; // Move every 0.2 seconds
+    [SerializeField] private float moveInterval = 0.1f; // Move every 0.1 seconds
 
     // Use this for initialization
     void Start()
@@ -18,17 +18,28 @@ public class SnakeController : MonoBehaviour
     void Update()
     {
         // Snake movement logic would go here
-        if (Input.GetKeyDown(KeyCode.UpArrow)){
-            moveDirection = Vector2Int.up;
+        // x축 이동하면 y축만 방향 전환 가능
+        if (moveDirection.x != 0)
+        {
+            if (Input.GetKeyDown(KeyCode.UpArrow))
+            {
+                moveDirection = Vector2Int.up;
+            }
+            else if (Input.GetKeyDown(KeyCode.DownArrow))
+            {
+                moveDirection = Vector2Int.down;
+            }
         }
-        else if(Input.GetKeyDown(KeyCode.DownArrow)){
-            moveDirection = Vector2Int.down;
-        }
-        else if (Input.GetKeyDown(KeyCode.LeftArrow)){
-            moveDirection = Vector2Int.left;
-        }
-        else if (Input.GetKeyDown(KeyCode.RightArrow)){
-            moveDirection = Vector2Int.right;
+        else if(moveDirection.y != 0)
+        {
+            if (Input.GetKeyDown(KeyCode.LeftArrow))
+            {
+                moveDirection = Vector2Int.left;
+            }
+            else if (Input.GetKeyDown(KeyCode.RightArrow))
+            {
+                moveDirection = Vector2Int.right;
+            }
         }
     }
 
@@ -41,7 +52,7 @@ public class SnakeController : MonoBehaviour
     private IEnumerator MoveLoop()
     {
         var wait = new WaitForSeconds(moveInterval);
-        while(true)
+        while (true)
         {
             MoveSnake();
             yield return wait;
