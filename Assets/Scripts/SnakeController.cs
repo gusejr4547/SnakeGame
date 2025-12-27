@@ -5,6 +5,10 @@ using System.Collections.Generic;
 public class SnakeController : MonoBehaviour
 {
     private Vector2Int moveDirection = Vector2Int.right;
+    // 실제 Snake 이동 방향은 안변했는데 같은 축 방향 변경이 가능한 경우 방지
+    // 오른쪽 가다가 상,좌 방향키 빠르게 누르면 왼쪽으로 가능경우 있음.
+    private Vector2Int lastInputDirection = Vector2Int.right;
+
     // SerializeField makes private fields visible in the Unity Inspector
     [SerializeField] private float moveInterval = 0.1f; // Move every 0.1 seconds
 
@@ -31,22 +35,22 @@ public class SnakeController : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.UpArrow))
             {
-                moveDirection = Vector2Int.up;
+                lastInputDirection = Vector2Int.up;
             }
             else if (Input.GetKeyDown(KeyCode.DownArrow))
             {
-                moveDirection = Vector2Int.down;
+                lastInputDirection = Vector2Int.down;
             }
         }
         else if (moveDirection.y != 0)
         {
             if (Input.GetKeyDown(KeyCode.LeftArrow))
             {
-                moveDirection = Vector2Int.left;
+                lastInputDirection = Vector2Int.left;
             }
             else if (Input.GetKeyDown(KeyCode.RightArrow))
             {
-                moveDirection = Vector2Int.right;
+                lastInputDirection = Vector2Int.right;
             }
         }
     }
@@ -86,6 +90,9 @@ public class SnakeController : MonoBehaviour
 
     private void MoveSegments()
     {
+        // 실제 이동 전에 마지막 입력방향 반영
+        moveDirection = lastInputDirection;
+
         // 몸통 조각 이동
         for (int i = segments.Count - 1; i > 0; i--)
         {

@@ -149,6 +149,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 587678df7ad8d704994df282aec40df4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SnakeController
+  moveInterval: 0.2
+  segmentPrefab: {fileID: 3471866976740486946, guid: 4ad2ff8c05dcfcf48890a6667797b3d9, type: 3}
+  snakeLength: 4
 --- !u!212 &318252546
 SpriteRenderer:
   serializedVersion: 2
